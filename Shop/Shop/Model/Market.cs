@@ -8,10 +8,10 @@ namespace Shop.Model
 {
     class Market
     {
+        Application application = new Application();
         Showcase showcase = new Showcase();
         Product product = new Product();
-       //нельзя удалить витрину если на ней есть продукты 
-       //нельзя добавить продуктов больше чем вмещается на витрине
+       
         private int Validate(string input)
         {
             var num = 0;
@@ -200,14 +200,14 @@ namespace Shop.Model
                     case "1":
                         {
                             Console.Clear();
-                            showcase.Interect();
+                            application.InterectsShowcase();
                             ShopUsing();
                             break;
                         }
                     case "2":
                         {
                             Console.Clear();
-                            product.Interect();
+                            application.InterectsProduct();
                             ShopUsing();
                             break;
                         }

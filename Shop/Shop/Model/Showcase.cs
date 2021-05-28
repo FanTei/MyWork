@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Model
 {
-    class Showcase : IShowCase
+    class Showcase
     {
         List<Showcase> showcases = new List<Showcase>();
         private int _count =1;
@@ -19,15 +19,28 @@ namespace Shop.Model
         public List<Product> products { get; set; }
         public int ProductID { get; set; }
         public Showcase() {}
-        public Showcase(string title,int id,int size)
+        public Showcase(string title,int size)
         {
             ProductID = 1;
             products = new List<Product>();
             CreateTime = DateTime.Now;
             DaliteTime = DateTime.MinValue;
-            ID = id;
+            ID = _count;
             Size = size;
             Title = title;
+        }
+        private Showcase FindShowcase(int id)
+        {
+            Showcase showcase = new Showcase();
+            foreach (var item in showcases)
+            {
+                if (item.ID == id)
+                {
+                    showcase = item;
+                    return showcase;
+                }
+            }
+            return showcase;
         }
         private int Validate(string input)
         {
@@ -61,19 +74,14 @@ namespace Shop.Model
             }
         }
         public List<Showcase> ReturnListShowcases() { return showcases; }
-        public void Add()
+
+        public void Add(string title,int size)
         {
-            string input;
-            Console.Write("Введите название:");
-            var title = Console.ReadLine();
-            Console.Write("Введите размер витрины:");
-            input = Console.ReadLine();
-            var size = Validate(input);
-            var id = _count;
+            Showcase showcase = new Showcase(title,size);
             _count++;
-            Showcase showcase = new Showcase(title,id,size);
             showcases.Add(showcase);
         }
+
         public void Print()
         {
             foreach(var x in showcases)
@@ -81,115 +89,30 @@ namespace Shop.Model
                 Console.WriteLine(x.ID+")"+"Title:"+x.Title+" Size:"+x.Size);
             }
         }
-        public void Remove()
-        {
-            Console.Write("Введите ID витрины:");
-            var input = Console.ReadLine();
-            var id = Validate(input);
-            CheckId(id);
-            var thisShowcase = new Showcase();
-            foreach(var item in showcases)
-            {
-                if (item.ID == id)
-                    thisShowcase = item;
-            }
-            //если на втирине продукт id!=1 то выйти из метода
-            if (thisShowcase.ProductID != 1)
-                Interect();
-            foreach (var x in showcases)
-            {
-                if (x.ID == id)
-                {
-                    showcases.Remove(x);
-                    x.DaliteTime = DateTime.Now;
-                    _count--;
-                    break;
-                }
-            }
-        }
-        public void Edit()
-        {
-            Console.Write("Введите ID витрины:");
-            var input = Console.ReadLine();
-            var id = Validate(input);
-            CheckId(id);
-            Showcase thisshowcase=this;
-            foreach (var item in showcases)
-            {
-                if (item.ID == id)
-                {
-                    thisshowcase = item;
-                    break;
-                }
-            }
-            Console.WriteLine("Введите:\n1) для изменения Title \n2) для изменени Size");
-            input = Console.ReadLine();
-            switch(input)
-            {
-                case "1":
-                    {
-                        Console.Write("Введите Tittle:");
-                        input = Console.ReadLine();
-                        thisshowcase.Title = input;
-                        break;
-                    }
-                case "2":
-                    {
-                        Console.Write("Введите Size:");
-                        input = Console.ReadLine();
-                        var size = Validate(input);
-                        thisshowcase.Size = size;
-                        break;
-                    }
-                default:
-                    {
-                        Console.WriteLine("Такого дейтсвия не сущесвует");
-                        input = Console.ReadLine();
-                        break;
-                    }
-            }
-        }
-        public void Interect()
-        {
-            Console.WriteLine("Введите:\n1)Для добавления\n2)Для редактирования\n3)Для удаления\n0)Для отабражения витрин");
-            var input = Console.ReadLine();
 
-            switch (input)
-            {
-                case "1":
-                    {
-                        Console.Clear();
-                        Add();
-                        break;
-                    }
-                case "2":
-                    {
-                        Console.Clear();
-                        Print();
-                        Edit();
-                        break;
-                    }
-                case "3":
-                    {
-                        Console.Clear();
-                        Print();
-                        Remove();
-                        break;
-                    }
-                case "0":
-                    {
-                        Print();
-                        break;
-                    }
-                default:
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Такого действия не существует");
-                        Interect();
-                        break;
-                    }
-            }
+        public void Remove(int id)
+        {
+            var showcase = FindShowcase(id);
+            //если на втирине продукт id!=1 то выйти из метода
+            //if (thisShowcase.ProductID != 1)
+            //    Interect();
+             showcases.Remove(showcase);
+             showcase.DaliteTime = DateTime.Now;
+             _count--;
         }
+
+        public void EditTitle(int id,string title)
+        {
+            var showcase = FindShowcase(id);
+            showcase.Title = title;
+        }
+
+        public void EditSize(int id,int size)
+        {
+            var showcase = FindShowcase(id);
+            showcase.Size = size;
+        }
+
         public int SumProductCapacity()
         {
             var sum = 0;
