@@ -7,9 +7,8 @@ namespace Shop.Model
     class Product
     {
         List<Product> products = new List<Product>();
-
         private int _count = 1;
-        public double Price { get; set; }
+        public int Price { get; set; }
         public int Count { get; set; }
         public int ShowcaseId { get; set; }
         public int ID { get; set; }
@@ -29,7 +28,7 @@ namespace Shop.Model
 
         public List<Product> ListProduct() { return products; }
 
-        private Product FindProduct(int id)
+        public Product FindProduct(int id)
         {
             Product thisproduct = this;
             foreach (var item in products)

@@ -29,7 +29,7 @@ namespace Shop.Model
             Size = size;
             Title = title;
         }
-        private Showcase FindShowcase(int id)
+        public Showcase FindShowcase(int id)
         {
             Showcase showcase = new Showcase();
             foreach (var item in showcases)
