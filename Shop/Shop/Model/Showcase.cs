@@ -1,4 +1,4 @@
-﻿using Shop.Interafaces;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace Shop.Model
 {
     class Showcase
     {
-        List<Showcase> showcases = new List<Showcase>();
+        Market _market;
         private int _count =1;
         public int ID { get; set; }
         public string Title { get ; set; }
@@ -18,9 +18,10 @@ namespace Shop.Model
         public DateTime DaliteTime { get ; set;}
         public List<Product> products { get; set; }
         public int ProductID { get; set; }
-        public Showcase() {}
+        public Showcase(Market market) { _market = market; }
         public Showcase(string title,int size)
         {
+            
             ProductID = 1;
             products = new List<Product>();
             CreateTime = DateTime.Now;
@@ -29,10 +30,20 @@ namespace Shop.Model
             Size = size;
             Title = title;
         }
+        public Product FindShowCaseItem(Showcase showcase, int productId)
+        {
+            var product = new Product(_market);
+            foreach (var item in showcase.products)
+            {
+                if (item.ID == productId)
+                    product = item;
+            }
+            return product;
+        }
         public Showcase FindShowcase(int id)
         {
-            Showcase showcase = new Showcase();
-            foreach (var item in showcases)
+            Showcase showcase = new Showcase(_market);
+            foreach (var item in _market.Showcases)
             {
                 if (item.ID == id)
                 {
@@ -73,18 +84,18 @@ namespace Shop.Model
                 CheckId(id);
             }
         }
-        public List<Showcase> ReturnListShowcases() { return showcases; }
+        //public List<Showcase> ReturnListShowcases() { return showcases; }
 
         public void Add(string title,int size)
         {
             Showcase showcase = new Showcase(title,size);
             _count++;
-            showcases.Add(showcase);
+            _market.Showcases.Add(showcase);
         }
 
         public void Print()
         {
-            foreach(var x in showcases)
+            foreach(var x in _market.Showcases)
             {
                 Console.WriteLine(x.ID+")"+"Title:"+x.Title+" Size:"+x.Size);
             }
@@ -96,7 +107,7 @@ namespace Shop.Model
             //если на втирине продукт id!=1 то выйти из метода
             //if (thisShowcase.ProductID != 1)
             //    Interect();
-             showcases.Remove(showcase);
+             _market.Showcases.Remove(showcase);
              showcase.DaliteTime = DateTime.Now;
              _count--;
         }

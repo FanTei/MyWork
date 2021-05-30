@@ -7,7 +7,8 @@ namespace Shop
         static void Main(string[] args)
         {
             Market market = new Market();
-            market.ShopUsing();
+            while (true)
+                market.Start();
         }
     }
 }
