@@ -15,7 +15,10 @@ namespace Shop.Model
         public int Capacity { get; set; }
         public DateTime CreateTime { get; set; }
         public DateTime DaliteTime { get; set; }
-        public Product(Market market) { _market = market; }
+        public Product(Market market) 
+        {
+            _market = market;
+        }
         public Product(string name, int capacity)
         {
            

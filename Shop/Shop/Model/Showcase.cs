@@ -18,7 +18,10 @@ namespace Shop.Model
         public DateTime DaliteTime { get ; set;}
         public List<Product> products { get; set; }
         public int ProductID { get; set; }
-        public Showcase(Market market) { _market = market; }
+        public Showcase(Market market) 
+        {
+            _market = market;
+        }
         public Showcase(string title,int size)
         {
             

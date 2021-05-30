@@ -15,12 +15,16 @@ namespace Shop.Model
        private Product _product;
         public Market()
         {
-            _showcase = new Showcase(this);
-            _product = new Product(this);
-            _application = new Application(_showcase, _product,this);
+            Showcases = new List<Showcase>();
+            Products = new List<Product>();
+
         }
+        
         public void Start()
         {
+            _product = new Product(this);
+            _showcase = new Showcase(this);
+            _application = new Application(this,_product,_showcase);
             _application.InterectsMarket();
         }
 

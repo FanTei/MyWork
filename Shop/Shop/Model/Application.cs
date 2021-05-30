@@ -13,12 +13,15 @@ namespace Shop.Model
         private Product _product;
         private Showcase _showcase;
         private Market _market;
-        public Application(Showcase showcase,Product product,Market market)
+        public Application()
         {
 
+        }
+        public Application(Market market,Product product,Showcase showcase)
+        {
+            _market = market;
             _showcase = showcase;
             _product = product;
-            _market = market;
         }
         private static int Validate(string input)
         {
