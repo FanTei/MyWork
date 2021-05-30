@@ -107,6 +107,7 @@ namespace Shop.Model
             editingproduct.Price = productId;
         }
 
+        
         public void Remove(int id)
         {
             var product = FindProduct(id);

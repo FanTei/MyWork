@@ -17,12 +17,25 @@ namespace Shop.Model
         {
 
         }
+        private double ValidatePrice(string input)
+        {
+            double num = 0;
+            var x = double.TryParse(input, out num);
+            while (!double.TryParse(input, out num))
+            {
+                Console.Write("Введите число больше нуля:");
+                input = Console.ReadLine();
+            }
+            return double.Parse(input);
+        }
+
         public Application(Market market,Product product,Showcase showcase)
         {
             _market = market;
             _showcase = showcase;
             _product = product;
         }
+
         private static int Validate(string input)
         {
             var num = 0;
@@ -34,7 +47,29 @@ namespace Shop.Model
             }
             return int.Parse(input);
         }
-        
+        public int CheSize(int count, Product product, Showcase showcase)
+        {
+            var IsContinue = IsLegitSize(count, product, showcase);
+            while(!IsContinue)
+            {
+                Console.WriteLine("Предмет не помезается на витрине");
+                count = int.Parse(Console.ReadLine());
+            }
+            return count;
+        }
+
+        public bool IsLegitSize(int count, Product product, Showcase showcase)
+        {
+            var sum = showcase.SumProductCapacity();
+            var capacity = product.Capacity;
+            if (sum < capacity * count)
+            {
+                Console.WriteLine("Продукт не помещается на витрине");
+                return false;
+            }
+            return true;
+        }
+
         private void EditProduct(int id)
         {
             const string EditName = "1";

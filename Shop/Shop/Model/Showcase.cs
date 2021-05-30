@@ -87,7 +87,6 @@ namespace Shop.Model
                 CheckId(id);
             }
         }
-        //public List<Showcase> ReturnListShowcases() { return showcases; }
 
         public void Add(string title,int size)
         {
