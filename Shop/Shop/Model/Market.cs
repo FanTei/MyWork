@@ -19,7 +19,7 @@ namespace Shop.Model
             Products = new List<Product>();
 
         }
-        
+
         public void Start()
         {
             _product = new Product(this);
@@ -28,19 +28,7 @@ namespace Shop.Model
             _application.InterectsMarket();
         }
         
-        private int Validate(string input)
-        {
-            var num = 0;
-            var x = int.TryParse(input, out num);
-            while (!int.TryParse(input, out num))
-            {
-                Console.Write("Введите целое число больше нуля:");
-                input = Console.ReadLine();
-            }
-            return int.Parse(input);
-        }
-
-        public void AddOnShowcase(int showcaseId,int producId,int price,int count)
+        public void AddOnShowcase(int showcaseId,int producId,double price,int count)
         {
             var useShowcase = _showcase.FindShowcase(showcaseId);
             var NewProduct = _product.FindProduct(producId);

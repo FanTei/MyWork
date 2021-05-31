@@ -7,7 +7,7 @@ namespace Shop.Model
     {
         Market _market;
         private int _count = 1;
-        public int Price { get; set; }
+        public double Price { get; set; }
         public int Count { get; set; }
         public int ShowcaseId { get; set; }
         public int ID { get; set; }
@@ -58,14 +58,14 @@ namespace Shop.Model
             if (id > _count-1)
             {
                 Console.WriteLine("Такого ID не существует,введите другой ID");
-                var input = Console.ReadLine();
-                id = Validate(input);
+                id = Validate();
                 CheckId(id);
             }
         }
 
-        private int Validate(string input)
+        private int Validate()
         {
+            var input = Console.ReadLine();
             var num = 0;
             var x = int.TryParse(input, out num);
             while (!int.TryParse(input, out num))
@@ -95,19 +95,18 @@ namespace Shop.Model
             thisproduct.Capacity = capacity;
         }
 
-        public void EditCount(Showcase showcase, int productId, int couhnt)//
+        public void EditCount(Showcase showcase, int productId, int couhnt)
         {
             var editingproduct = showcase.FindShowCaseItem(showcase, productId);
             editingproduct.Count = couhnt;
         }
 
-        public void EditPrice(Showcase showcase,int productId,int price)
+        public void EditPrice(Showcase showcase,int productId,double price)
         {
             var editingproduct = showcase.FindShowCaseItem(showcase, productId);
             editingproduct.Price = productId;
         }
 
-        
         public void Remove(int id)
         {
             var product = FindProduct(id);

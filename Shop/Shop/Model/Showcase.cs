@@ -56,8 +56,9 @@ namespace Shop.Model
             }
             return showcase;
         }
-        private int Validate(string input)
+        private int Validate()
         {
+            var input = Console.ReadLine();
             var num = 0;
             var x = int.TryParse(input, out num);
             while (!int.TryParse(input, out num))
@@ -72,8 +73,7 @@ namespace Shop.Model
             if (id > ProductID - 1)
             {
                 Console.WriteLine("Такого ID не существует,введите другой ID");
-                var input = Console.ReadLine();
-                id = Validate(input);
+                id = Validate();
                 CheckProductID(id);
             }
         }
@@ -82,8 +82,7 @@ namespace Shop.Model
             if (id > _count-1)
             {
                 Console.WriteLine("Такого ID не существует,введите другой ID");
-                var input = Console.ReadLine();
-                id = Validate(input);
+                id = Validate();
                 CheckId(id);
             }
         }
@@ -93,7 +92,7 @@ namespace Shop.Model
             Showcase showcase = new Showcase(title,size);
             _count++;
             _market.Showcases.Add(showcase);
-        }
+        }           
 
         public void Print()
         {

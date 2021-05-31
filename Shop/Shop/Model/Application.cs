@@ -17,9 +17,18 @@ namespace Shop.Model
         {
 
         }
-        private double ValidatePrice(string input)
+       
+        public Application(Market market,Product product,Showcase showcase)
         {
-            double num = 0;
+            _market = market;
+            _showcase = showcase;
+            _product = product;
+        }
+
+        private static double ValidatePrice()
+        {
+            var input = Console.ReadLine();
+            double num;
             var x = double.TryParse(input, out num);
             while (!double.TryParse(input, out num))
             {
@@ -28,17 +37,10 @@ namespace Shop.Model
             }
             return double.Parse(input);
         }
-
-        public Application(Market market,Product product,Showcase showcase)
+        private static int Validate()
         {
-            _market = market;
-            _showcase = showcase;
-            _product = product;
-        }
-
-        private static int Validate(string input)
-        {
-            var num = 0;
+            var input = Console.ReadLine();
+            int num;
             var x = int.TryParse(input, out num);
             while (!int.TryParse(input, out num))
             {
@@ -88,8 +90,7 @@ namespace Shop.Model
                 case EditCapcity:
                     {
                         Console.Write("Введите Capacity:");
-                        input = Console.ReadLine();
-                        var capacity = Validate(input);
+                        var capacity = Validate();
                         _product.EditCapacity(id, capacity);
                         break;
                     }
@@ -115,26 +116,28 @@ namespace Shop.Model
                         Console.Write("Введите название:");
                         var name = Console.ReadLine();
                         Console.Write("Введите занимаемый обьем:");
-                        input = Console.ReadLine();
-                        var capacity =Validate(input);
+                        var capacity =Validate();
                         _product.Create(name, capacity);
+                        Console.Clear();
                         break;
                     }
                 case Edit:
                     {
+                        _product.Print();
                         Console.Write("Введите ID товара:");
-                        input = Console.ReadLine();
-                        var id= Validate(input);
+                        var id= Validate();
                         _product.CheckId(id);
                         EditProduct(id);
+                        Console.Clear();
                         break;
                     }
                 case Remove:
                     {
+                        _product.Print();
                         Console.Write("Введите ID товара:");
-                        input = Console.ReadLine();
-                        var id = Validate(input);
+                        var id = Validate();
                         _product.Remove(id);
+                        Console.Clear();
                         break;
                     }
                 case Print:
@@ -169,8 +172,7 @@ namespace Shop.Model
                 case EditSize:
                     {
                         Console.Write("Введите Size:");
-                        input = Console.ReadLine();
-                        var size = Validate(input);
+                        var size = Validate();
                         _showcase.EditSize(id, size);
                         break;
                     }
@@ -189,34 +191,38 @@ namespace Shop.Model
             {
                 case Add:
                     {
+                        Console.Clear();
                         Console.Write("Введите название:");
                         var title = Console.ReadLine();
                         Console.Write("Введите размер витрины:");
-                        input = Console.ReadLine();
-                        var size = Validate(input);
+                        var size = Validate();
                         _showcase.Add(title, size);
                         break;
                     }
                 case Edit:
                     {
+                        Console.Clear();
+                        _showcase.Print();
                         Console.Write("Введите ID витрины:");
-                        input = Console.ReadLine();
-                        var id = Validate(input);
+                        var id = Validate();
                         _showcase.CheckId(id);
                         EditShowCase(id);
                         break;
                     }
                 case Remove:
                     {
+                        Console.Clear();
+                        _showcase.Print();
                         Console.Write("Введите ID витрины:");
-                        input = Console.ReadLine();
-                        var id = Validate(input);
+                        var id = Validate();
                         _showcase.CheckId(id);
                         _showcase.Remove(id);
+                        Console.Clear();
                         break;
                     }
                 case Print:
                     {
+                        Console.Clear();
                         _showcase.Print();
                         break;
                     }
@@ -240,18 +246,21 @@ namespace Shop.Model
             {
                 case ShowcaseMenu:
                     {
+                        Console.Clear();
                         InterectsShowcase();
                         InterectsMarket();
                         break;
                     }
                 case ProductMenu:
                     {
+                        Console.Clear();
                         InterectsProduct();
                         InterectsMarket();
                         break;
                     }
                 case ShopMenu:
                     {
+                        Console.Clear();
                         InterectShowcasesItems();
                         InterectsMarket();
                         break;
@@ -268,32 +277,30 @@ namespace Shop.Model
         {
             const string Price = "1";
             const string Count = "2";
+            _showcase.Print();
             Console.Write("Введите ID витрины:");
-           var input = Console.ReadLine();
-            var showcaseId = Validate(input);
+            var showcaseId = Validate();
             _showcase.CheckId(showcaseId);
             var useShowcase = _showcase.FindShowcase(showcaseId);
+            _market.PrintShowcasesItems(showcaseId);
             Console.Write("Введите ID продукта:");
-            input = Console.ReadLine();
-            var productId = Validate(input);
+            var productId = Validate();
             useShowcase.CheckProductID(productId);
             Console.WriteLine("Введите:\n1) для изменения Price \n2) для изменени Count");
-            input = Console.ReadLine();
+            var input = Console.ReadLine();
             switch(input)
             {
                 case Price:
                     {
                         Console.Write("Введите Price:");
-                        input = Console.ReadLine();
-                        var price = Validate(input);
+                        var price = ValidatePrice();
                         _product.EditPrice(useShowcase, productId, price);
                         break;
                     }
                 case Count:
                     {
-                        Console.Write("Введите Price:");
-                        input = Console.ReadLine();
-                        var count = Validate(input);
+                        Console.Write("Введите Count:");
+                        var count = Validate();
                         _product.EditCount(useShowcase, productId, count);
                         break;
                     }
@@ -321,41 +328,38 @@ namespace Shop.Model
                     {
                         _showcase.Print();
                         Console.Write("Введите ID витрины:");
-                        input = Console.ReadLine();
-                        var showcaseId = Validate(input);
+                        var showcaseId = Validate();
                         _showcase.CheckId(showcaseId);
+                        _product.Print();
                         Console.Write("Введите ID продукта:");
-                        input = Console.ReadLine();
-                        var newproduct = Validate(input);
+                        var newproduct = Validate();
                         _product.CheckId(newproduct);
                         Console.Write("Введите цену товара:");
-                        input = Console.ReadLine();
-                        var price = Validate(input);
-                        input = Console.ReadLine();
-                        var count = Validate(input);
+                        var price = ValidatePrice();
+                        Console.Write("Введите количество продуктов:");
+                        var count = Validate();
                         _market.AddOnShowcase(showcaseId, newproduct, price, count);
+                        Console.Clear();
                         break;
                     }
                 case Remove:
                     {
                         _showcase.Print();
                         Console.Write("Введите ID витрины:");
-                        input = Console.ReadLine();
-                        var showcaseId = Validate(input);
+                        var showcaseId = Validate();
                         _showcase.CheckId(showcaseId);
+                        _market.PrintShowcasesItems(showcaseId);
                         Console.Write("Введите ID проддукта:");
-                        input = Console.ReadLine();
-                        var productid = Validate(input);
+                        var productid = Validate();
                         _showcase.CheckProductID(productid);
                         _market.RemoveToShowcase(showcaseId, productid);
-
-                        break;
+                        Console.Clear();
+                        break;                    
                     }
                 case Print:
                     {
-                        Console.Write("Введите Id витрины:");
-                        input = Console.ReadLine();
-                        var showcaseId = Validate(input);
+                        Console.Write("Введите ID витрины:");
+                        var showcaseId = Validate();
                         _showcase.CheckId(showcaseId);
                         _market.PrintShowcasesItems(showcaseId);
                         break;
@@ -366,9 +370,8 @@ namespace Shop.Model
                         InterectShowcasesItems();
                         break;
                     }
-
-
             }
         }
     }
 }
+                
