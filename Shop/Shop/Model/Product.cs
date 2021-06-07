@@ -15,9 +15,12 @@ namespace Shop.Model
         public int Capacity { get; set; }
         public DateTime CreateTime { get; set; }
         public DateTime DaliteTime { get; set; }
+        private List<Product> _products;
         public Product(Market market) 
         {
             _market = market;
+            _products = _market.GetProducts();
+
         }
         public Product(string name, int capacity)
         {
@@ -31,7 +34,7 @@ namespace Shop.Model
         public Product FindProduct(int id)
         {
             Product thisproduct = this;
-            foreach (var item in _market.Products)
+            foreach (var item in _products )
             {
                 if (item.ID == id)
                 {
@@ -44,7 +47,7 @@ namespace Shop.Model
 
         public void Print()
         {
-            foreach (var x in _market.Products)
+            foreach (var x in _products)
             {
                 if (x.ShowcaseId == 0)
                 {
@@ -80,7 +83,7 @@ namespace Shop.Model
         {
             _count++;
             Product product = new Product(name, capacity);
-            _market.Products.Add(product);
+            _products.Add(product);
         }
 
         public void EditName(int id,string name)
@@ -110,7 +113,7 @@ namespace Shop.Model
         public void Remove(int id)
         {
             var product = FindProduct(id);
-            _market.Products.Remove(product);
+            _products.Remove(product);
            product.DaliteTime = DateTime.Now;
            _count--;
         }

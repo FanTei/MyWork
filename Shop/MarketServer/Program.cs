@@ -1,13 +1,12 @@
 ﻿using System;
-using Shop.Model;
-namespace Shop
+
+namespace MarketServer
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Market market = new Market();
-            market.Start();
+            Console.WriteLine("Hello World!");
         }
     }
 }

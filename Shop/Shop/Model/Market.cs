@@ -8,8 +8,8 @@ namespace Shop.Model
 {
     class Market
     {
-        public List<Showcase> Showcases { get; set;}
-        public List<Product> Products { get; set;}
+        private List<Showcase> Showcases { get; set;}
+        private List<Product> Products { get; set;}
        private Application _application;
        private Showcase _showcase;
        private Product _product;
@@ -19,13 +19,20 @@ namespace Shop.Model
             Products = new List<Product>();
 
         }
+        public List<Showcase> GetShowcases() { return Showcases;}
 
-        public void Start()
+        public List<Product> GetProducts() { return Products;}
+
+        private void Generate()
         {
             _product = new Product(this);
             _showcase = new Showcase(this);
             _application = new Application(this,_product,_showcase);
-            _application.InterectsMarket();
+        }
+        public void Start()
+        {
+            Generate();
+            _application.Start();
         }
         
         public void AddOnShowcase(int showcaseId,int producId,double price,int count)

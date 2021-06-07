@@ -18,9 +18,11 @@ namespace Shop.Model
         public DateTime DaliteTime { get ; set;}
         public List<Product> products { get; set; }
         public int ProductID { get; set; }
+        private List<Showcase> _showcases;
         public Showcase(Market market) 
         {
             _market = market;
+            _showcases = _market.GetShowcases();
         }
         public Showcase(string title,int size)
         {
@@ -46,7 +48,7 @@ namespace Shop.Model
         public Showcase FindShowcase(int id)
         {
             Showcase showcase = new Showcase(_market);
-            foreach (var item in _market.Showcases)
+            foreach (var item in _showcases)
             {
                 if (item.ID == id)
                 {
@@ -91,12 +93,12 @@ namespace Shop.Model
         {
             Showcase showcase = new Showcase(title,size);
             _count++;
-            _market.Showcases.Add(showcase);
+            _showcases.Add(showcase);
         }           
 
         public void Print()
         {
-            foreach(var x in _market.Showcases)
+            foreach(var x in _showcases)
             {
                 Console.WriteLine(x.ID+")"+"Title:"+x.Title+" Size:"+x.Size);
             }
@@ -108,7 +110,7 @@ namespace Shop.Model
             //если на втирине продукт id!=1 то выйти из метода
             //if (thisShowcase.ProductID != 1)
             //    Interect();
-             _market.Showcases.Remove(showcase);
+             _showcases.Remove(showcase);
              showcase.DaliteTime = DateTime.Now;
              _count--;
         }

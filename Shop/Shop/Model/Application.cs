@@ -10,6 +10,8 @@ namespace Shop.Model
         const string Add = "1";
         const string Edit = "2";
         const string Remove = "3";
+        const string Back = "X";
+        private bool IsContinue = true;
         private Product _product;
         private Showcase _showcase;
         private Market _market;
@@ -43,14 +45,20 @@ namespace Shop.Model
             int num;
             var x = int.TryParse(input, out num);
             while (!int.TryParse(input, out num))
-            {
+            { 
                 Console.Write("Введите целое число больше нуля:");
                 input = Console.ReadLine();
             }
             return int.Parse(input);
         }
+        public void Start()
+        {
+            while (IsContinue)
+                InterectsMarket();
+        }
         public int CheSize(int count, Product product, Showcase showcase)
         {
+            
             var IsContinue = IsLegitSize(count, product, showcase);
             while(!IsContinue)
             {
@@ -62,6 +70,7 @@ namespace Shop.Model
 
         public bool IsLegitSize(int count, Product product, Showcase showcase)
         {
+           
             var sum = showcase.SumProductCapacity();
             var capacity = product.Capacity;
             if (sum < capacity * count)
@@ -76,8 +85,8 @@ namespace Shop.Model
         {
             const string EditName = "1";
             const string EditCapcity = "2";
-            Console.WriteLine("Введите 1 для изменения Name \nВведите 2 для изменени Capacity");
-            var input = Console.ReadLine();
+            Console.WriteLine("Введите 1 для изменения Name \nВведите 2 для изменени Capacity\nВведите X для выхода");
+            var input = Console.ReadLine().ToUpper();
             switch (input)
             {
                 case EditName:
@@ -94,10 +103,15 @@ namespace Shop.Model
                         _product.EditCapacity(id, capacity);
                         break;
                     }
+                case Back:
+                    {
+                        InterectsProduct();
+                        break;
+                    }
                 default:
                     {
                         Console.WriteLine("Такого дейтсвия не сущесвует");
-                        input = Console.ReadLine();
+                        input = Console.ReadLine().ToUpper();
                         EditProduct(id);
                         break;
                     }
@@ -107,8 +121,8 @@ namespace Shop.Model
         public void InterectsProduct()
         {
             const string Create = "1";
-            Console.WriteLine("Введите:\n1)Для добавления\n2)Для редактирования\n3)Для удаления\n0)Для отабражения продуктов");
-            var input = Console.ReadLine();
+            Console.WriteLine("Введите:\n1)Для добавления\n2)Для редактирования\n3)Для удаления\n0)Для отабражения продуктов\nВведите X для выхода");
+            var input = Console.ReadLine().ToUpper();
             switch(input)
             {
                 case Create:
@@ -145,6 +159,11 @@ namespace Shop.Model
                         _product.Print();
                         break;
                     }
+                case Back:
+                    {
+                        InterectsMarket();
+                        break;
+                    }
                 default:
                     {
                         Console.WriteLine("Такого действия не существует");
@@ -158,8 +177,8 @@ namespace Shop.Model
         {
             const string EditTitle = "1";
             const string EditSize = "2";
-            Console.WriteLine("Введите:\n1) для изменения Title \n2) для изменени Size");
-            var input = Console.ReadLine();
+            Console.WriteLine("Введите:\n1) для изменения Title \n2) для изменени Size\nВведите X для выхода");
+            var input = Console.ReadLine().ToUpper();
             switch(input)
             {
                 case EditTitle:
@@ -176,6 +195,11 @@ namespace Shop.Model
                         _showcase.EditSize(id, size);
                         break;
                     }
+                case Back:
+                    {
+                        InterectsShowcase();
+                        break;
+                    }
                 default:
                     {
                         break;
@@ -185,8 +209,8 @@ namespace Shop.Model
 
         public void InterectsShowcase()
         {
-            Console.WriteLine("Введите:\n1)Для добавления\n2)Для редактирования\n3)Для удаления\n0)Для отабражения витрин");
-            var input = Console.ReadLine();
+            Console.WriteLine("Введите:\n1)Для добавления\n2)Для редактирования\n3)Для удаления\n0)Для отабражения витрин\nВведите X для выхода");
+            var input = Console.ReadLine().ToUpper();
             switch(input)
             {
                 case Add:
@@ -226,6 +250,11 @@ namespace Shop.Model
                         _showcase.Print();
                         break;
                     }
+                case Back:
+                    {
+                        InterectsMarket();
+                        break;
+                    }
                 default:
                     {
                         Console.WriteLine("Такого действия не существуе");
@@ -240,8 +269,8 @@ namespace Shop.Model
             const string ShowcaseMenu = "1";
             const string ProductMenu = "2";
             const string ShopMenu = "3";
-            Console.WriteLine("Введите:\n1)Для управления витринами\n2)Для управления продуктами\n3)Для управления магазином");
-            var input = Console.ReadLine();
+            Console.WriteLine("Введите:\n1)Для управления витринами\n2)Для управления продуктами\n3)Для управления магазином\nВведите X для выхода");
+            var input = Console.ReadLine().ToUpper();
             switch(input)
             {
                 case ShowcaseMenu:
@@ -265,6 +294,11 @@ namespace Shop.Model
                         InterectsMarket();
                         break;
                     }
+                case Back:
+                    {
+                        IsContinue = false;
+                        break;
+                    }
                 default:
                     {
                         Console.WriteLine("Такого действия не существует");
@@ -286,8 +320,8 @@ namespace Shop.Model
             Console.Write("Введите ID продукта:");
             var productId = Validate();
             useShowcase.CheckProductID(productId);
-            Console.WriteLine("Введите:\n1) для изменения Price \n2) для изменени Count");
-            var input = Console.ReadLine();
+            Console.WriteLine("Введите:\n1) для изменения Price \n2) для изменени Count\nВведите X для выхода");
+            var input = Console.ReadLine().ToUpper();
             switch(input)
             {
                 case Price:
@@ -304,6 +338,11 @@ namespace Shop.Model
                         _product.EditCount(useShowcase, productId, count);
                         break;
                     }
+                case Back:
+                    {
+                        InterectShowcasesItems();
+                        break;
+                    }
                 default:
                     {
                          
@@ -316,8 +355,8 @@ namespace Shop.Model
 
         public void InterectShowcasesItems()
         {
-            Console.WriteLine("Введите:\n1)Для добавления товаров на витрину\n2)Для редактирования\n3)Для удаления товаров с витрины\n0)Для отаброжения продуктов на витрине");
-            var input = Console.ReadLine();
+            Console.WriteLine("Введите:\n1)Для добавления товаров на витрину\n2)Для редактирования\n3)Для удаления товаров с витрины\n0)Для отаброжения продуктов на витрине\nВведите X для выхода");
+            var input = Console.ReadLine().ToUpper();
             switch(input)
             {
                 case Edit:
@@ -362,6 +401,11 @@ namespace Shop.Model
                         var showcaseId = Validate();
                         _showcase.CheckId(showcaseId);
                         _market.PrintShowcasesItems(showcaseId);
+                        break;
+                    }
+                case Back:
+                    {
+                        InterectsMarket();
                         break;
                     }
                 default:
