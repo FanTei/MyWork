@@ -34,7 +34,17 @@ namespace Shop.Model
             Generate();
             _application.Start();
         }
-        
+        public void EditCount(Showcase showcase, int productId, int count)
+        {
+            var editingproduct = showcase.FindShowCaseItem(showcase, productId);
+            editingproduct.Count = count;
+        }
+
+        public void EditPrice(Showcase showcase, int productId, double price)
+        {
+            var editingproduct = showcase.FindShowCaseItem(showcase, productId);
+            editingproduct.Price = productId;
+        }
         public void AddOnShowcase(int showcaseId,int producId,double price,int count)
         {
             var useShowcase = _showcase.FindShowcase(showcaseId);
