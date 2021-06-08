@@ -328,14 +328,14 @@ namespace Shop.Model
                     {
                         Console.Write("Введите Price:");
                         var price = ValidatePrice();
-                        _product.EditPrice(useShowcase, productId, price);
+                        _market.EditPrice(useShowcase, productId, price);
                         break;
                     }
                 case Count:
                     {
                         Console.Write("Введите Count:");
                         var count = Validate();
-                        _product.EditCount(useShowcase, productId, count);
+                        _market.EditCount(useShowcase, productId, count);
                         break;
                     }
                 case Back:

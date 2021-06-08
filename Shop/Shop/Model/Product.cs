@@ -98,18 +98,6 @@ namespace Shop.Model
             thisproduct.Capacity = capacity;
         }
 
-        public void EditCount(Showcase showcase, int productId, int couhnt)
-        {
-            var editingproduct = showcase.FindShowCaseItem(showcase, productId);
-            editingproduct.Count = couhnt;
-        }
-
-        public void EditPrice(Showcase showcase,int productId,double price)
-        {
-            var editingproduct = showcase.FindShowCaseItem(showcase, productId);
-            editingproduct.Price = productId;
-        }
-
         public void Remove(int id)
         {
             var product = FindProduct(id);
