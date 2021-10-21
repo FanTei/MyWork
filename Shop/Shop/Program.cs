@@ -6,8 +6,9 @@ namespace Shop
     {
         static void Main(string[] args)
         {
-            Market market = new Market();
-            market.Start();
+            Store magize = new Store();
+            magize.Start();
+
         }
     }
 }
