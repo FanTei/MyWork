@@ -23,6 +23,8 @@ namespace Shop.Model
 
         public DateTime DeliteTime { get; set; }
 
+        public Product() { }
+
         public Product(int id,string name,int capacity,double price,int quantity)
         {
             Quantity = quantity;

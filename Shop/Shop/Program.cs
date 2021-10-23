@@ -6,8 +6,11 @@ namespace Shop
     {
         static void Main(string[] args)
         {
-            Store magize = new Store();
-            magize.Start();
+            Store store = new Store();
+            while(true)
+            {
+                Application.StoreMenu(store);
+            }
 
         }
     }

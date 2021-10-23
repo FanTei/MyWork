@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace Shop.Interfaces
 {
-    interface IShop
+    interface IStore
     {
         public void PrintShowcases();
 
-        public void EditShowcase();
+        public void EditNameShowcase();
+
+        public void EditSizeShowcase();
+
+        public void EditIdShowcase();
 
         public void RemoveShowcase();
 
