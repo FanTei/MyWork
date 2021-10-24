@@ -10,6 +10,7 @@ namespace Shop.Model
    public class Showcase : IShowcase
     {
         private List<Product> _products;
+
         public Showcase()
         {
 
@@ -25,7 +26,7 @@ namespace Shop.Model
             _products = new List<Product>();
         }
 
-        public int Id { get; set ; }
+        public int? Id { get; set ; }
 
         public string Name { get; set ; }
 
@@ -35,6 +36,17 @@ namespace Shop.Model
 
         public DateTime DeliteTime { get ; set; }
 
+        private int OccupiedSize()
+        {
+            int sum = 0;
+            foreach (var product in _products)
+            {
+                sum += product.Capacity * product.Quantity;
+            }
+            return sum;
+        }
+
+
         private Product FindProduct()
         {
             int Id = Application.InputId();
@@ -43,22 +55,9 @@ namespace Shop.Model
                 if (product.Id == Id)
                     return product;
             }
+            Console.WriteLine("Такого id не существует!");
+            FindProduct();
             return new Product();
-        }
-
-        public void Use()
-        {
-            Console.WriteLine("1-добавить");
-            Console.WriteLine("2-показать");
-            Console.WriteLine("3-удалить");
-            Console.WriteLine("4-меню с митринами");
-            string input = Console.ReadLine();
-            if (input == "1")
-                AddProduct();
-            if (input == "2")
-                PrintProducts();
-            if (input == "3")
-                RemoveProduct();
         }
 
         public void EditId()

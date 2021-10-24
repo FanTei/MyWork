@@ -54,7 +54,7 @@ namespace Shop.Model
             int number;
             Console.WriteLine("Введите количество");
             var input = Console.ReadLine();
-            while (int.TryParse(input, out number))
+            while (!int.TryParse(input, out number))
             {
                 Console.WriteLine(Error);
                 input = Console.ReadLine();
@@ -67,7 +67,7 @@ namespace Shop.Model
             double number;
             Console.WriteLine("Введите цену");
             var input = Console.ReadLine();
-            while (double.TryParse(input, out number))
+            while (!double.TryParse(input, out number))
             {
                 Console.WriteLine(Error);
                 input = Console.ReadLine();
@@ -112,6 +112,7 @@ namespace Shop.Model
 
         public static void StoreMenu(Store store)
         {
+            const ConsoleKey ShowcaseInteraction = ConsoleKey.D5;
             Console.WriteLine("Нажмите\n" +
                 "1)Для добавления витрины\n" +
                 "2)Для показа витрин\n" +
@@ -142,6 +143,12 @@ namespace Shop.Model
                         StoreEditMenu(store);
                         break;
                     }
+                case ShowcaseInteraction:
+                    {
+                        store.PrintShowcases();
+                        ShowcaseMenu(store.FindShowcase());
+                        break;
+                    }
                 default:
                     {
                         Console.WriteLine(Error);
@@ -150,9 +157,87 @@ namespace Shop.Model
             }    
         }
 
+        public static void ShowcaseEditMenu(Showcase showcase)
+        {
+            const ConsoleKey Quantity = ConsoleKey.D4;
+            const ConsoleKey Price = ConsoleKey.D5;
+            Console.WriteLine("Нажмите:\n" +
+                "1) Для редактировния id\n" +
+                "2) Для редактировния имени\n" +
+                "3) Для редактировния размера\n" +
+                "4) Для редактировния количества\n" +
+                "5) Для редактировния цены\n");
+            var input = Console.ReadKey().Key;
+            switch (input)
+            {
+                case Id:
+                    {
+                        showcase.EditId();
+                        break;
+                    }
+                case Name:
+                    {
+                        showcase.EditName();
+                        break;
+                    }
+                case Size:
+                    {
+                        showcase.EditCapacity();
+                        break;
+                    }
+                case Quantity:
+                    {
+                        showcase.EditQuantity();
+                        break;
+                    }
+                case Price:
+                    {
+                        showcase.EditPrice();
+                        break;
+                    }           
+                default:
+                    {
+                        Console.WriteLine(Error);
+                        break;
+                    }
+            }
+        }
+
         public static void ShowcaseMenu(Showcase showcase)
         {
-            Console.WriteLine();
+            Console.WriteLine("Нажмите:\n" +
+                "1)Для добавления продуктов\n" +
+                "2)Для показа продуктов\n" +
+                "3)Для удаления продуктов\n" +
+                "4)Для редактирования продуктов\n");
+            var input = Console.ReadKey().Key;
+            switch (input)
+            {
+                case Add:
+                    {
+                        showcase.AddProduct();
+                        break;
+                    }
+                case Print:
+                    {
+                        showcase.PrintProducts();
+                        break;
+                    }
+                case Remove:
+                    {
+                        showcase.RemoveProduct();
+                        break;
+                    }
+                case Edit:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine(Error);
+                        break;
+                    }
+            }
         }
 
     }

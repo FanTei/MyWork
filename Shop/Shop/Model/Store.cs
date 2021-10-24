@@ -15,7 +15,7 @@ namespace Shop.Model
             _showcases = new List<Showcase>();
         }
 
-        private Showcase FindShowcase ()
+        public Showcase FindShowcase ()
         {
             int Id = Application.InputId();
             foreach (var showacase in _showcases)
@@ -23,6 +23,8 @@ namespace Shop.Model
                 if (showacase.Id == Id)
                     return showacase;
             }
+            Console.WriteLine("Такого id не существует!");
+            FindShowcase();
             return new Showcase();
         }
 

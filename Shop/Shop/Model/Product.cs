@@ -9,7 +9,7 @@ namespace Shop.Model
 {
     class Product : IProduct
     {
-        public int Id { get ; set ; }
+        public int? Id { get ; set ; }
 
         public int Quantity { get; set; }
 
