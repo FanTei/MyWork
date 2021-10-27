@@ -6,12 +6,8 @@ namespace Shop
     {
         static void Main(string[] args)
         {
-            Product product = new Product();
             Store store = new Store();
-            while(true)
-            {
-                Application.StoreMenu(store);
-            }
+            Application.StoreMenu(store);
         }
     }
 }

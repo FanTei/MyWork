@@ -127,55 +127,72 @@ namespace Shop.Model
         public static void StoreMenu(Store store)
         {
             const ConsoleKey ShowcaseInteraction = ConsoleKey.D5;
+            const ConsoleKey End = ConsoleKey.D0;
+            ConsoleKey input=ConsoleKey.C;
+            while (input!= End)
+            {
             Console.WriteLine("Нажмите\n" +
                 "1)Для добавления витрины\n" +
                 "2)Для показа витрин\n" +
                 "3)Для удаления витрины\n" +
                 "4)Для редактирования витрины\n" +
-                "5)Для работы с витринами");
-            var input = Console.ReadKey().Key;
+                "5)Для работы с витринами\n" +
+                "0) Для выхода");
+            input = Console.ReadKey().Key;
             Console.Clear();
-            switch (input)
-            {
-                case Add:
-                    {
-                        store.AddShowcase();
-                        Next();
-                        break;
-                    }
-                case Print:
-                    {
-                        store.PrintShowcases();
-                        Next();
-                        break;
-                    }
-                case Remove:
-                    {
-                        store.RemoveShowcase();
-                        break;
-                    }
-                case Edit:
-                    {
-                        StoreEditMenu(store);
-                        Next();
-                        break;
-                    }
-                case ShowcaseInteraction:
-                    {
-                        store.PrintShowcases();
-                        var showcase = store.FindShowcase();
-                        if (showcase != null) ShowcaseMenu(showcase);
-                        break;
-                    }
-                default:
-                    {
-                        Console.WriteLine(Error);
-                        break;
-                    }
+                switch (input)
+                {
+                    case Add:
+                        {
+                            store.AddShowcase();
+                            Next();
+                            break;
+                        }
+
+                    case Print:
+                        {
+                            store.PrintShowcases();
+                            Next();
+                            break;
+                        }
+
+                    case Remove:
+                        {
+                            store.RemoveShowcase();
+                            break;
+                        }
+
+                    case Edit:
+                        {
+                            StoreEditMenu(store);
+                            Next();
+                            break;
+                        }
+
+                    case End:
+                        {
+                            Console.WriteLine("ВОЗВРАЩАЙСЯ!");
+                            break;
+                        }
+               
+                    case ShowcaseInteraction:
+                        {
+                            store.PrintShowcases();
+                            var showcase = store.FindShowcase();
+                            if (showcase != null) ShowcaseMenu(showcase);
+                            break;
+                        }
+                    
+                    default:
+                        {
+                            Console.WriteLine(Error);
+                            break;
+                        }
+                }
             }    
         }
 
-        public static void ShowcaseEditMenu(Showcase showcase)
+        private static void ShowcaseEditMenu(Showcase showcase)
         {
             const ConsoleKey Quantity = ConsoleKey.D4;
             const ConsoleKey Price = ConsoleKey.D5;
@@ -221,7 +238,7 @@ namespace Shop.Model
             }
         }
 
-        public static void ShowcaseMenu(Showcase showcase)
+        private static void ShowcaseMenu(Showcase showcase)
         {
             Console.WriteLine("Нажмите:\n" +
                 "1)Для добавления продуктов\n" +
