@@ -9,7 +9,7 @@ namespace Shop.Interfaces
 {
     interface IShowcase
     {
-        int? Id { get; set; }
+        int Id { get; set; }
 
         string Name { get; set; }
 

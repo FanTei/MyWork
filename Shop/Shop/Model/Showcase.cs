@@ -26,7 +26,7 @@ namespace Shop.Model
             _products = new List<Product>();
         }
 
-        public int? Id { get; set ; }
+        public int Id { get; set ; }
 
         public string Name { get; set ; }
 
@@ -46,6 +46,23 @@ namespace Shop.Model
             return sum;
         }
 
+        private bool IsAuthenticId(int id)
+        {
+            if(_products.Any(x=>x.Id==id))
+            {
+                Console.WriteLine("Такой Id уже существует");
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsPlace(int quantity, int capacity)
+        {
+            int AllOccupiedSize = OccupiedSize() + (quantity * capacity);
+            if (AllOccupiedSize > Size)
+                return false;
+            return true;
+        }
 
         private Product FindProduct()
         {
@@ -64,6 +81,8 @@ namespace Shop.Model
         {
             Product AlterableShowcase = FindProduct();
             int NewId = Application.InputId();
+            while(!IsAuthenticId(NewId))
+                NewId =Application.InputId();
             AlterableShowcase.Id = NewId;
         }
 
@@ -78,14 +97,32 @@ namespace Shop.Model
         {
             Product AlterableShowcase = FindProduct();
             int NewQuantity = Application.InputQuanity();
-            AlterableShowcase.Quantity = NewQuantity;
+            if (IsPlace(AlterableShowcase.Capacity, NewQuantity))
+            {
+                AlterableShowcase.Quantity = NewQuantity; ;
+            }
+            else
+            {
+                Console.WriteLine("Продукт не помещается!");
+                EditQuantity();
+            }
+            
         }
 
         public void EditCapacity()
         {
             Product AlterableShowcase = FindProduct();
             int NewCapacity = Application.InputSize();
-            AlterableShowcase.Capacity = NewCapacity;
+            if (IsPlace(AlterableShowcase.Quantity, NewCapacity))
+            {
+                AlterableShowcase.Capacity = NewCapacity;
+            }
+            else
+            {
+                Console.WriteLine("Продукт не помещается!");
+                EditCapacity();
+            }
+
         }
 
         public void EditPrice()
@@ -98,22 +135,32 @@ namespace Shop.Model
         public void AddProduct()
         {
             int id = Application.InputId();
+            if (!IsAuthenticId(id))
+                id = Application.InputId();
             string name = Application.InputName();
             int capacity = Application.InputSize();
             int quantity = Application.InputQuanity();
             double price = Application.InputPrice();
             Product AddedProduct = new Product(id, name, capacity, price, quantity);
-            _products.Add(AddedProduct);
+            if(IsPlace(capacity, quantity))
+                _products.Add(AddedProduct);
+            else
+            {
+                Console.WriteLine("Продукт не помещается!");
+                AddProduct();
+            }
+
         }
 
         public void PrintProducts()
         {
             foreach (var product in _products)
             {
-                Console.WriteLine("Id: " + product.Id +
-                    "Название: "+product.Name + 
-                    "Количество: " +product.Quantity + 
-                    "Цена: " + product.Price);
+                Console.WriteLine("Id:" + product.Id +
+                    "\nНазвание:" + product.Name + 
+                    "\nКоличество:" + product.Quantity + 
+                    "\nРазмер:" + product.Capacity +
+                    "\nЦена:" + product.Price);
             }
         }
 

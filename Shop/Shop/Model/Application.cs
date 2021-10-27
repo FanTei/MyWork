@@ -16,6 +16,14 @@ namespace Shop.Model
         private const ConsoleKey Print = ConsoleKey.D2;
         private const ConsoleKey Remove = ConsoleKey.D3;
         private const ConsoleKey Edit = ConsoleKey.D4;
+        private const ConsoleKey Back = ConsoleKey.D0;
+
+        private static void Next()
+        {
+            Console.WriteLine("Для продолжения нажмите любую клавишу");
+            Console.ReadKey();
+            Console.Clear();
+        }
 
         public static int InputId()
         {
@@ -79,8 +87,9 @@ namespace Shop.Model
         {
             Console.WriteLine("Нажмите:\n" +
                 "1)Для редактирования id\n" +
-                "2)Для редактирования имениn\n" +
-                "3)Для редактирования размера");
+                "2)Для редактирования имени\n" +
+                "3)Для редактирования размера\n" +
+                "0)Назад");
             var input = Console.ReadKey().Key;
             Console.Clear();
             store.PrintShowcases();
@@ -99,6 +108,11 @@ namespace Shop.Model
                 case Size:
                     {
                         store.EditSizeShowcase();
+                        break;
+                    }
+                case Back:
+                    {
+                        StoreMenu(store);
                         break;
                     }
                 default:
@@ -126,11 +140,13 @@ namespace Shop.Model
                 case Add:
                     {
                         store.AddShowcase();
+                        Next();
                         break;
                     }
                 case Print:
                     {
                         store.PrintShowcases();
+                        Next();
                         break;
                     }
                 case Remove:
@@ -141,12 +157,14 @@ namespace Shop.Model
                 case Edit:
                     {
                         StoreEditMenu(store);
+                        Next();
                         break;
                     }
                 case ShowcaseInteraction:
                     {
                         store.PrintShowcases();
-                        ShowcaseMenu(store.FindShowcase());
+                        var showcase = store.FindShowcase();
+                        if (showcase != null) ShowcaseMenu(showcase);
                         break;
                     }
                 default:
@@ -209,26 +227,36 @@ namespace Shop.Model
                 "1)Для добавления продуктов\n" +
                 "2)Для показа продуктов\n" +
                 "3)Для удаления продуктов\n" +
-                "4)Для редактирования продуктов\n");
+                "4)Для редактирования продуктов\n" +
+                "0)Назад");
             var input = Console.ReadKey().Key;
             switch (input)
             {
                 case Add:
                     {
                         showcase.AddProduct();
+                        Next();
                         break;
                     }
                 case Print:
                     {
                         showcase.PrintProducts();
+                        Next();
                         break;
                     }
                 case Remove:
                     {
                         showcase.RemoveProduct();
+                        Next();
                         break;
                     }
                 case Edit:
+                    {
+                        showcase.PrintProducts();
+                        ShowcaseEditMenu(showcase);
+                        break;
+                    }
+                case Back:
                     {
                         break;
                     }

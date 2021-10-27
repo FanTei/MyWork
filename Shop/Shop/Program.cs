@@ -12,7 +12,6 @@ namespace Shop
             {
                 Application.StoreMenu(store);
             }
-
         }
     }
 }
