@@ -1,10 +1,8 @@
-﻿using Shop.CLI.Models;
+using Shop.CLI.Models;
 using System;
-using System.Collections.Generic;
 
 namespace Shop.CLI
 {
-
     public class Application
     {
         private Store _store;
