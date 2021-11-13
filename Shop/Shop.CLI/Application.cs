@@ -1,4 +1,6 @@
 using Shop.CLI.Commands;
+using Shop.CLI.Commands.ProductCommands;
+using Shop.CLI.Commands.ShowcaseCommands;
 using Shop.CLI.Models;
 using System;
 
@@ -16,8 +18,12 @@ namespace Shop.CLI
             _menu.AddCommand(new CreateShowcaseCommand(_store));
             _menu.AddCommand(new PrintShowcasesCommand(_store));
             _menu.AddCommand(new DeleteShowcaseCommand(_store));
-            //_menu.AddCommand(new CreateProductCommand(_store));
-            //_menu.AddCommand(new PlaceProductCommand(_store));
+            _menu.AddCommand(new CreateProductCommand(_store));
+            _menu.AddCommand(new DeleteProductCommand(_store));
+            _menu.AddCommand(new PrintProductCommand(_store));
+            _menu.AddCommand(new PlaceProductCommand(_store));
+            _menu.AddCommand(new RemoveProductCommand(_store));
+            _menu.AddCommand(new PrintShowcasesItemsCommand(_store));
         }
 
         public void Run()
