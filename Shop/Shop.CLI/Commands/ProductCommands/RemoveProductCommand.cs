@@ -1,37 +1,38 @@
 ﻿using Shop.CLI.Models;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Shop.CLI
+namespace Shop.CLI.Commands.ProductCommands
 {
-    public class PlaceProductCommand : ICommand
+    class RemoveProductCommand : ICommand
     {
-        private Store _store;
+        private readonly Store _store;
 
-        public PlaceProductCommand(Store store)
+        public RemoveProductCommand(Store store)
         {
             _store = store;
         }
+        public string Name => "8) Для удаления товара с витрины\n";
 
-        public string Name => "3) Разместить товар на ветрине";
-        public ConsoleKey Key => ConsoleKey.D3;
+        public ConsoleKey Key => ConsoleKey.D8;
 
         public void Run()
         {
-            var productId = Guid.NewGuid();
-
+            var productId = Input.Id("продукта");
             if (_store.Products.TryGetValue(productId, out var product) == false)
             {
                 Console.WriteLine($"Не найден продукт с идентификатором: {productId}");
+                return;
             }
 
-            var showcaseId = Guid.NewGuid();
-
+            var showcaseId = Input.Id("витрины");
             if (_store.Showcases.TryGetValue(showcaseId, out var showcase) == false)
             {
                 Console.WriteLine($"Не найдена витрина с идентификатором: {showcaseId}");
+                return;
             }
-
-            showcase.Products.Add(product);
+            showcase.Products.Remove(product);
         }
     }
 }

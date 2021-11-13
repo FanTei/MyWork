@@ -10,11 +10,10 @@ namespace Shop.CLI
 
         public CreateProductCommand(Store store)
         {
-            _store = store;
+           _store = store;
         }
-
-        public ConsoleKey Key => ConsoleKey.D1;
-        public string Name => "1) Для создания нового товара\n";
+        public ConsoleKey Key => ConsoleKey.D4;
+        public string Name => "4) Для создания нового товара\n";
 
         public void Run()
         {

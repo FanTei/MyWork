@@ -21,6 +21,8 @@ namespace Shop.CLI
             foreach (var showcase in _store.Showcases)
             {
                 Console.WriteLine(showcase.Value.Name);
+                Console.WriteLine(showcase.Value.Id);
+                Console.WriteLine("\n");
             }
         }
     }

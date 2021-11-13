@@ -65,6 +65,12 @@ namespace Shop.CLI.Commands
             }
             return double.Parse(input);
         }
-
+        public static Guid Id(string item)
+        {
+            Console.WriteLine("Введите Id " + item + ":");
+            var input = Console.ReadLine();
+            var guid = Guid.TryParse(input, out var end);
+            return end;
+        }
     }
 }
