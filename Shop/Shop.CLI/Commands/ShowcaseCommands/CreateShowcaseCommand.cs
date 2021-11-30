@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Shop.CLI.Commands
 {
-    class CreateShowcaseCommand : ICommand
+    class CreateShowcaseHandler : ICommand
     {
         private readonly Store _store;
 
-        public CreateShowcaseCommand(Store store)
+        public CreateShowcaseHandler(Store store)
         {
             _store = store;
         }
