@@ -1,4 +1,5 @@
-﻿using Shop.Server.Models;
+﻿using Newtonsoft.Json.Linq;
+using Shop.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,13 @@ namespace Shop.Server.Handlers
 
         public string PathAndQuery => "Store";
 
-        public void Run()
+        public void Run(JObject content)
         {
+            var name = (string)content["Name"];
+            var size = (int)content["Size"];
             Showcase showcase = new Showcase();
-            showcase.Name = "";
-            showcase.Size = 0;
+            showcase.Name = name;
+            showcase.Size = size;
             _store.Showcases.Add(showcase.Id, showcase);
         }
     }

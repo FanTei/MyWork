@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Shop.Client
 {
-    class ShowcaseModel
+    class EditShowcaseModel
     {
         public string Name { get; set; }
 
-        public int Size { get; set; }
+        public string NewName { get; set; }
 
+        public int NewSize { get; set; }
     }
 }
