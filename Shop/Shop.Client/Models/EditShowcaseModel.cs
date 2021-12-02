@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Client
+namespace Shop.Client.Models
 {
-    class ShowcaseModel
+    class EditShowcaseModel
     {
         public string Name { get; set; }
 
-        public int Size { get; set; }
+        public string NewName { get; set; }
 
+        public int NewSize { get; set; }
     }
 }

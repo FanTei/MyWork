@@ -26,11 +26,9 @@ namespace Shop.Server.Handlers
             var newName = (string)content["NewName"];
             var newSize = (int)content["NewSize"];
             var name = (string)content["Name"];
-            foreach (var showcase in _store.Showcases)
-            {
-                if (showcase.Value.Name == name)
-                    showcase.Value.Name = newName;
-                    showcase.Value.Size = newSize;
+            var editShowcase = _store.Showcases.FirstOrDefault(x => x.Value.Name == name).Value;
+            editShowcase.Name = newName;
+            editShowcase.Size = newSize;
             }
         }
     }

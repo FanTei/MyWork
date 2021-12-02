@@ -19,7 +19,7 @@ namespace Shop.Client
             public static int Size()
             {
                 int number;
-                Console.WriteLine("Введите размер");
+                Console.WriteLine("Введите обьем");
                 var input = Console.ReadLine();
                 while (!int.TryParse(input, out number))
                 {
@@ -67,6 +67,7 @@ namespace Shop.Client
                 }
                 return double.Parse(input);
             }
+
             public static Guid Id(string item)
             {
                 Console.WriteLine("Введите Id " + item + ":");

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Client
+namespace Shop.Client.Models
 {
     class ProductModel
     {

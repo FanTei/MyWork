@@ -28,8 +28,8 @@ namespace Shop.Server
                 bytes = new byte[request.ContentLength64];
                 inStream.Read(bytes, 0, (int)request.ContentLength64);
                 inStream.Close();
-                var jsoncontent = Encoding.UTF8.GetString(bytes);
-                var content = (JObject)JsonConvert.DeserializeObject(jsoncontent);
+                var jsonContent = Encoding.UTF8.GetString(bytes);
+                var content = (JObject)JsonConvert.DeserializeObject(jsonContent);
                 if (request.Url.PathAndQuery == "/Store")
                 {
                     switch (request.HttpMethod)
@@ -72,6 +72,10 @@ namespace Shop.Server
                         case "PATCH":
                             requestContext.Response.StatusCode = 200;
                             new DeleteProductHandler(store).Run(content);
+                            break;
+                        case "PUT":
+                            requestContext.Response.StatusCode = 200;
+                            new EditProductHandler(store).Run(content);
                             break;
                     }
                 }

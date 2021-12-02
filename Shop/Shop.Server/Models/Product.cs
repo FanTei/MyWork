@@ -17,7 +17,6 @@ namespace Shop.Server.Models
 
         public int Quantity { get; set; }
 
-
         public int Capacity { get; set; }
 
         public double Price { get; set; }
