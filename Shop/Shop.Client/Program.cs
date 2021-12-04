@@ -10,7 +10,7 @@ namespace Shop.Client
             Menu menu = new Menu();
             while (true)
             {
-                menu.FirstMenu();
+                menu.StoreMenu();
             }
         }
     }

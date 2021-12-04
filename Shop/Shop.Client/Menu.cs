@@ -11,18 +11,32 @@ namespace Shop.Client
 {
     class Menu
     {
-        public void FirstMenu()
+        public void StoreMenu()
+        {
+            Console.WriteLine("1)Для работы с витринами");
+            Console.WriteLine("2)Для работы с продуктами");
+            var operation = Console.ReadKey();
+            switch (operation.Key)
+            {
+                case ConsoleKey.D1:
+                    ShowcaseMenu();
+                    break;
+                case ConsoleKey.D2:
+                    ProductMenu();
+                    break;
+                default:
+                    Console.WriteLine("Такой операции не существует");
+                    break;
+            }
+        }
+
+        public void ShowcaseMenu()
         {
             Console.WriteLine("1)Создать новую витрину");
             Console.WriteLine("2)Показать витрины");
             Console.WriteLine("3)Редактировать витрину");
             Console.WriteLine("4)Удалить витрину");
-            Console.WriteLine("5)Создать продукт");
-            Console.WriteLine("6)Показать продукты");
-            Console.WriteLine("7)Удалить товар");
-            Console.WriteLine("8)Редоктировать продукт");
             var operation = Console.ReadKey();
-
             switch (operation.Key)
             {
                 case ConsoleKey.D1:
@@ -37,22 +51,35 @@ namespace Shop.Client
                 case ConsoleKey.D4:
                     DeleteShowcase();
                     break;
-                case ConsoleKey.D5:
+                default:
+                    Console.WriteLine("Такой операции не существует");
+                    break;
+            }
+        }
+
+        public void ProductMenu()
+        {
+            Console.WriteLine("1)Создать продукт");
+            Console.WriteLine("2)Показать продукты");
+            Console.WriteLine("3)Удалить товар");
+            Console.WriteLine("4)Редактировать продукт");
+            var operation = Console.ReadKey();
+            switch (operation.Key)
+            {
+                case ConsoleKey.D1:
                     AddNewProduct();
                     break;
-                case ConsoleKey.D6:
+                case ConsoleKey.D2:
                     PrintProducts();
                     break;
-                case ConsoleKey.D7:
+                case ConsoleKey.D3:
                     DeleteProduct();
                     break;
-                case ConsoleKey.D8:
+                case ConsoleKey.D4:
                     EditProduct();
-                    
-                    break;
-                case ConsoleKey.D9:
                     break;
                 default:
+                    Console.WriteLine("Такой операции не существует");
                     break;
             }
         }
