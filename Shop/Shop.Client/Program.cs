@@ -7,10 +7,10 @@ namespace Shop.Client
     {
         static void Main(string[] args)
         {
-            Menu menu = new Menu();
+            FirstMenu menu = new FirstMenu();
             while (true)
             {
-                menu.StoreMenu();
+                menu.Menu();
             }
         }
     }
