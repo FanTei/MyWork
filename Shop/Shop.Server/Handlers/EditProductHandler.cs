@@ -18,18 +18,16 @@ namespace Shop.Server.Handlers
             _store = store;
         }
 
-        public HttpMethod HttpMethod => HttpMethod.Put;
-
         public string PathAndQuery => "/Product";
 
         public void Run(JObject content)
         {
             var name = (string)content["Name"];
+            var editProduct = _store.Products.FirstOrDefault(x => x.Value.Name == name).Value;
             var newName = (string)content["NewName"];
             var newQuantity = (int)content["NewQuantity"];
             var newCapacity = (int)content["NewCapacity"];
-            var newPrice = (double)content["NewPrice"];
-            var editProduct = _store.Products.FirstOrDefault(x => x.Value.Name == name).Value;
+            var newPrice = (double)content["NewPrice"];           
             editProduct.Name = newName;
             editProduct.Capacity = newQuantity;
             editProduct.Quantity = newQuantity;

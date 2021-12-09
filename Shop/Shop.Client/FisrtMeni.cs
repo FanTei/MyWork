@@ -19,10 +19,15 @@ namespace Shop.Client
             _productMenu = new ProductMenu(httpClient);
             _showcaseMenu = new ShowcaseMenu(httpClient);
         }
-        public void Menu()
+
+        private void Print()
         {
             Console.WriteLine("1)Для работы с витринами");
             Console.WriteLine("2)Для работы с продуктами");
+        }
+        public void Menu()
+        {
+            Print();
             var operation = Console.ReadKey();
             Console.Clear();
             switch (operation.Key)

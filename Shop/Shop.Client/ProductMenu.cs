@@ -12,23 +12,34 @@ namespace Shop.Client
 {
     class ProductMenu
     {
+        private string _address = "http://localhost:21857/Product";
         private HttpClient _httpClient;
 
         public ProductMenu(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-        public void Menu()
+
+        private void Print()
         {
             Console.WriteLine("1)Создать продукт");
             Console.WriteLine("2)Показать продукты");
             Console.WriteLine("3)Удалить товар");
             Console.WriteLine("4)Редактировать продукт");
+        }
+
+        public void Menu()
+        {
+            Print();
             var operation = Console.ReadKey();
             switch (operation.Key)
             {
                 case ConsoleKey.D1:
-                    AddNewProduct();
+                    var name = Input.Name();
+                    var capacity = Input.Capacity();
+                    var quantity = Input.Quanity();
+                    var price = Input.Price();
+                    AddNewProduct(name, capacity, quantity, price);
                     break;
                 case ConsoleKey.D2:
                     PrintProducts();
@@ -45,25 +56,23 @@ namespace Shop.Client
             }
         }
 
-        private void AddNewProduct()
+        private void AddNewProduct(string name, int capacity, int quantity, double price)
         {
-            var productModel = new ProductModel();
-            var name = Input.Name();
-            var capacity = Input.Capacity();
-            var quantity = Input.Quanity();
-            var price = Input.Price();
-            productModel.Name = name;
-            productModel.Capacity = capacity;
-            productModel.Quantity = quantity;
-            productModel.Price = price;
+            var productModel = new ProductModel() 
+            {
+                Name = name, 
+                Capacity = capacity, 
+                Quantity = quantity, 
+                Price = price 
+            };
             var jsonContent = JsonConvert.SerializeObject(productModel, Formatting.Indented);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = _httpClient.PostAsync("http://localhost:21857/Product", httpContent).Result;
+            var response = _httpClient.PostAsync(_address, httpContent).Result;
         }
 
         private void PrintProducts()
         {
-            var response = _httpClient.GetAsync("http://localhost:21857/Product").Result;
+            var response = _httpClient.GetAsync(_address).Result;
             var content = response.Content.ReadAsStringAsync().Result;
             Console.WriteLine(content);
         }
@@ -75,7 +84,7 @@ namespace Shop.Client
             deleteProduct.Name = name;
             var jsonContent = JsonConvert.SerializeObject(deleteProduct, Formatting.Indented);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = _httpClient.PatchAsync("http://localhost:21857/Product", httpContent).Result;
+            var response = _httpClient.PatchAsync(_address, httpContent).Result;
         }
 
         private void EditProduct()
@@ -96,7 +105,7 @@ namespace Shop.Client
             editProduct.NewPrice = newPrice;
             var jsonContent = JsonConvert.SerializeObject(editProduct, Formatting.Indented);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = _httpClient.PutAsync("http://localhost:21857/Product", httpContent).Result;
+            var response = _httpClient.PutAsync(_address, httpContent).Result;
         }
     }
 }

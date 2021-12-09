@@ -2,12 +2,9 @@
 using Newtonsoft.Json.Linq;
 using Shop.Server.Handlers;
 using Shop.Server.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Shop.Server
 {
@@ -22,7 +19,7 @@ namespace Shop.Server
             _httpListener = new HttpListener();
         }
 
-        public void Instal(string prefix)
+        public void Install(string prefix)
         {
             _httpListener.Prefixes.Add(prefix);
             _httpListener.Start();
@@ -30,26 +27,26 @@ namespace Shop.Server
 
         private string ShowcaseInteraction(HttpListenerContext requestContext,HttpListenerRequest request ,JObject content)
         {
-            
+
             var responseValue = "";
             switch (request.HttpMethod)
             {
-                case "GET":
+                case HttpMethod.GET:
                     requestContext.Response.StatusCode = 200;
                     var showcases = new ListShowcasesHandler(_store).Run();
                     responseValue = JsonConvert.SerializeObject(showcases, Formatting.Indented);
                     break;
-                case "POST":
+                case HttpMethod.POST:
                     requestContext.Response.StatusCode = 200;
                     new CreateShowcaseHandler(_store).Run(content);
                     responseValue = "Витрина добавлена";
                     break;
-                case "PUT":
+                case HttpMethod.PUT:
                     requestContext.Response.StatusCode = 200;
                     new EditShowcaseHandler(_store).Run(content);
                     responseValue = "Витрина отредактирована";
                     break;
-                case "PATCH":
+                case HttpMethod.PATCH:
                     requestContext.Response.StatusCode = 200;
                     new DeleteShowcaseHandler(_store).Run(content);
                     responseValue = " Витрина удалена";
@@ -58,7 +55,6 @@ namespace Shop.Server
                     break;
             }
             return responseValue;
-           
         }
 
         private string ProductInteraction(HttpListenerContext requestContext, HttpListenerRequest request, JObject content)
@@ -66,22 +62,22 @@ namespace Shop.Server
             var responseValue = "";
             switch (request.HttpMethod)
             {
-                case "POST":
+                case HttpMethod.POST:
                     requestContext.Response.StatusCode = 200;
                     new CreateProductHandler(_store).Run(content);
                     responseValue = "Продукт добавлен";
                     break;
-                case "GET":
+                case HttpMethod.GET:
                     requestContext.Response.StatusCode = 200;
                     var products = new ListProductHandler(_store).Run();
                     responseValue = JsonConvert.SerializeObject(products, Formatting.Indented);
                     break;
-                case "PATCH":
+                case HttpMethod.PATCH:
                     requestContext.Response.StatusCode = 200;
                     new DeleteProductHandler(_store).Run(content);
                     responseValue = "Продукт удален";
                     break;
-                case "PUT":
+                case HttpMethod.PUT:
                     requestContext.Response.StatusCode = 200;
                     new EditProductHandler(_store).Run(content);
                     responseValue = "Продукт отредактирован";
@@ -92,6 +88,7 @@ namespace Shop.Server
 
         public void Work()
         {
+            string responseValue="";
             byte[] bytes;
             var requestContext = _httpListener.GetContext();
             var request = requestContext.Request;
@@ -101,7 +98,6 @@ namespace Shop.Server
             inStream.Close();
             var jsonContent = Encoding.UTF8.GetString(bytes);
             var content = (JObject)JsonConvert.DeserializeObject(jsonContent);
-            var responseValue = "";
             if (request.Url.PathAndQuery == "/Store")
             {
                 responseValue = ShowcaseInteraction(requestContext, request, content);

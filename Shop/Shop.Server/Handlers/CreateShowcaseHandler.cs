@@ -17,17 +17,12 @@ namespace Shop.Server.Handlers
         {
             _store = store;
         }
-        public HttpMethod HttpMethod => HttpMethod.Get;
 
         public string PathAndQuery => "Store";
 
         public void Run(JObject content)
         {
-            var name = (string)content["Name"];
-            var size = (int)content["Size"];
-            Showcase showcase = new Showcase();
-            showcase.Name = name;
-            showcase.Size = size;
+            Showcase showcase = new Showcase() { Name = (string)content["Name"], Size = (int)content["Size"] };
             _store.Showcases.Add(showcase.Id, showcase);
         }
     }

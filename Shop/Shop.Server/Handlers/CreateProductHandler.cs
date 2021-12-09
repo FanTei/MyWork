@@ -17,22 +17,17 @@ namespace Shop.Server.Handlers
         {
             _store = store;
         }
-
-        public HttpMethod HttpMethod => HttpMethod.Post;
-
         public string PathAndQuery => "/Product";
 
         public void Run(JObject content)
         {
-            var name = (string)content["Name"];
-            var capacity = (int)content["Capacity"];
-            var quantity = (int)content["Quantity"];
-            var price = (double)content["Price"];
-            var product = new Product();
-            product.Name = name;
-            product.Capacity = capacity;
-            product.Quantity = quantity;
-            product.Price = price;
+            var product = new Product()
+            {
+                Name = (string)content["Name"],
+                Capacity = (int)content["Capacity"],
+                Quantity = (int)content["Quantity"],
+                Price = (double)content["Price"]
+            };
             _store.Products.Add(product.Id, product);
         }
     }

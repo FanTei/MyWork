@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -9,8 +10,8 @@ namespace Shop.Server.Handlers
 {
     interface IHandaler
     {
-        public HttpMethod HttpMethod { get;}
-
         public string PathAndQuery { get;}
+
+        public void Run(JObject content)
     }
 }

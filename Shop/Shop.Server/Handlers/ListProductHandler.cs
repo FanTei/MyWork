@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Server.Handlers
 {
-    class ListProductHandler : IHandaler
+    class ListProductHandler
     {
         private Store _store;
 
@@ -17,8 +17,6 @@ namespace Shop.Server.Handlers
         {
             _store = store;
         }
-
-        public HttpMethod HttpMethod => HttpMethod.Get;
 
         public string PathAndQuery => "/Product";
 

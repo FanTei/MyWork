@@ -17,7 +17,6 @@ namespace Shop.Server.Handlers
         {
             _store = store;
         }
-        public HttpMethod HttpMethod => HttpMethod.Put;
 
         public string PathAndQuery => "/Store";
 

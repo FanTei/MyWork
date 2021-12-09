@@ -14,9 +14,9 @@ namespace Shop.Server
     {
         static void Main(string[] args)
         {
-            Store store = new Store();
-            Interaction interaction = new Interaction(store);
-            interaction.Instal("http://localhost:21857/");
+            var store = new Store();
+            var interaction = new Interaction(store);
+            interaction.Install("http://localhost:21857/");
             while (true)
                 interaction.Work();
             
